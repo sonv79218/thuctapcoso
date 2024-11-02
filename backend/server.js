@@ -15,18 +15,26 @@ const db = mysql.createConnection({
 
 db.connect((err) => {
   if (err) {
-    console.error("Kết nối DB thất bại:", err);
+    console.error("Lỗi kết nối DB:", err);
   } else {
     console.log("Kết nối DB thành công!");
   }
 });
 
-// Thiết lập route cơ bản
-app.get("/", (req, res) => {
-  res.send("Hello từ Backend!");
+// Route kiểm tra dữ liệu
+app.get("/books", (req, res) => {
+  const query = "SELECT * FROM books";
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Lỗi truy vấn:", err);
+      res.status(500).send("Lỗi server");
+    } else {
+      res.json(results);
+    }
+  });
 });
 
-// Khởi chạy server
+// Khởi động server
 app.listen(port, () => {
-  console.log(`Server chạy trên http://localhost:${port}`);
+  console.log(`Server chạy trên http://localhost:${port}/books`);
 });
