@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import Header from "./Header_footer/Header";
 const BookList = () => {
   const [books, setBooks] = useState([]);
 
@@ -13,7 +13,7 @@ const BookList = () => {
 
   return (
     <div>
-      <h2>Danh Sách Sách</h2>
+      <Header />
       <ul>
         {books.map((book) => (
           <li key={book.id}>
