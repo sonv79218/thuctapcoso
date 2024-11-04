@@ -12,8 +12,8 @@ const Header = () => {
         <a href="/books" className="header-link">
           Sách
         </a>
-        <a href="/about" className="header-link">
-          Giới Thiệu
+        <a href="/login" className="header-link">
+          Đăng nhập
         </a>
       </nav>
     </header>
