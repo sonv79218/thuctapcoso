@@ -1,5 +1,23 @@
 import React from "react";
+import "../Css/Header.css"; // Import file CSS
+
 const Header = () => {
-  return <h2>Danh Sách Sách đây là header</h2>;
+  return (
+    <header className="header">
+      <h1 className="header-title">Danh Sách Sách</h1>
+      <nav className="header-nav">
+        <a href="/" className="header-link">
+          Trang Chủ
+        </a>
+        <a href="/books" className="header-link">
+          Sách
+        </a>
+        <a href="/about" className="header-link">
+          Giới Thiệu
+        </a>
+      </nav>
+    </header>
+  );
 };
+
 export default Header;
