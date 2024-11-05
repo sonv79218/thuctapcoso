@@ -4,6 +4,7 @@ import Header from "./Header_footer/Header";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import BookList from "./components/BookList";
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         {/* Thay 'component' bằng 'element' */}
         <Route path="/books" element={<BookList />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );

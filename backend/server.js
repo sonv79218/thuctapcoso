@@ -9,6 +9,7 @@ const port = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 // Import các routes
+const registerRoutes = require("./routes/register");
 const loginRoutes = require("./routes/login");
 const paymentRoutes = require("./routes/payment");
 const bookRoutes = require("./routes/book");
@@ -20,6 +21,7 @@ const notificationsRoutes = require("./routes/notifications");
 const homeRoutes = require("./routes/home"); // Thêm dòng này
 // Sử dụng các routes
 app.use("/", homeRoutes); // Thay đổi để sử dụng homeRoutes
+app.use("/api/register", registerRoutes);
 app.use("/api/login", loginRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/book", bookRoutes);

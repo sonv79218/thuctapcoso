@@ -15,6 +15,9 @@ const Header = () => {
         <a href="/login" className="header-link">
           Đăng nhập
         </a>
+        <a href="/register" className="header-link">
+          Đăng ký
+        </a>
       </nav>
     </header>
   );
