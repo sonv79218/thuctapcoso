@@ -1,54 +1,59 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Thay useHistory bằng useNavigate
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate(); // Thay useHistory() bằng useNavigate()
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
       const response = await fetch("http://localhost:5000/api/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
       });
+
       const data = await response.json();
 
       if (response.ok) {
-        setMessage(data.message);
-        // Lưu token hoặc thông tin người dùng vào localStorage nếu cần
+        alert(data.message);
+        navigate("/home"); // Sử dụng navigate để điều hướng về trang chủ sau khi đăng nhập thành công
       } else {
-        setMessage(data.message);
+        setErrorMessage(data.message); // Hiển thị lỗi
       }
     } catch (error) {
-      setMessage("Đã xảy ra lỗi khi đăng nhập.");
+      console.error("Lỗi khi đăng nhập:", error);
+      setErrorMessage("Lỗi kết nối đến server.");
     }
   };
 
   return (
     <div>
       <h2>Đăng Nhập</h2>
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Mật khẩu"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Đăng Nhập</button>
+        <label>
+          Tên đăng nhập:
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </label>
+        <label>
+          Mật khẩu:
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+        <button type="submit">Đăng nhập</button>
       </form>
-      <p>{message}</p>
     </div>
   );
 };

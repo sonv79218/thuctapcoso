@@ -12,12 +12,6 @@ const Header = () => {
         <a href="/books" className="header-link">
           Sách
         </a>
-        <a href="/login" className="header-link">
-          Đăng nhập
-        </a>
-        <a href="/register" className="header-link">
-          Đăng ký
-        </a>
       </nav>
     </header>
   );
