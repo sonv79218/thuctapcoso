@@ -1,57 +1,62 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Thay useHistory bằng useNavigate
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate(); // Thay useHistory() bằng useNavigate()
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+      // Gửi yêu cầu đăng nhập tới server
+      const response = await axios.post("/api/login", {
+        username,
+        password,
       });
 
-      const data = await response.json();
+      // Kiểm tra đăng nhập thành công
+      if (response.status === 200) {
+        const { token } = response.data; // Giả sử token trả về là 'token'
 
-      if (response.ok) {
-        alert(data.message);
-        navigate("/home"); // Sử dụng navigate để điều hướng về trang chủ sau khi đăng nhập thành công
-      } else {
-        setErrorMessage(data.message); // Hiển thị lỗi
+        // Lưu token vào localStorage
+        localStorage.setItem("token", token);
+
+        // Điều hướng đến trang home sau khi đăng nhập thành công
+        navigate("/home");
       }
     } catch (error) {
-      console.error("Lỗi khi đăng nhập:", error);
-      setErrorMessage("Lỗi kết nối đến server.");
+      console.error("Lỗi đăng nhập:", error);
+      setErrorMessage("Thông tin đăng nhập không đúng.");
     }
   };
 
   return (
     <div>
-      <h2>Đăng Nhập</h2>
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      <h2>Đăng nhập</h2>
       <form onSubmit={handleLogin}>
-        <label>
-          Tên đăng nhập:
+        <div>
+          <label>Tài khoản</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
           />
-        </label>
-        <label>
-          Mật khẩu:
+        </div>
+        <div>
+          <label>Mật khẩu</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
-        </label>
+        </div>
+        {errorMessage && <p>{errorMessage}</p>}
         <button type="submit">Đăng nhập</button>
       </form>
     </div>

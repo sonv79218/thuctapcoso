@@ -1,8 +1,8 @@
-// routes/login.js
 const express = require("express");
 const bcrypt = require("bcrypt");
 const db = require("../config/db"); // Giả sử file này chứa kết nối DB của bạn
-const router = express.Router();
+const jwt = require("jsonwebtoken");
+const router = express.Router(); // Thêm dòng này để khai báo router
 
 router.post("/", (req, res) => {
   const { username, password } = req.body;
@@ -28,11 +28,14 @@ router.post("/", (req, res) => {
       return res.status(400).json({ message: "Sai thông tin đăng nhập" });
     }
 
-    // Đăng nhập thành công
-    res
-      .status(200)
-      .json({ message: "Đăng nhập thành công!", user: user.username });
+    // Tạo JWT token
+    const token = jwt.sign({ username: user.username }, "JWT_SECRET", {
+      expiresIn: "1h", // Ví dụ: hết hạn sau 1 giờ
+    });
+
+    // Trả về token cho client
+    res.status(200).json({ message: "Đăng nhập thành công!", token });
   });
 });
 
-module.exports = router;
+module.exports = router; // Đảm bảo export router
