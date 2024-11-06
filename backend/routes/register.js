@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const db = require("../db"); // Kết nối cơ sở dữ liệu
+const db = require("../config/db"); // Kết nối cơ sở dữ liệu
 
 router.post("/", async (req, res) => {
   const { username, password, email, full_name } = req.body;

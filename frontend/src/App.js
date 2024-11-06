@@ -11,6 +11,8 @@ import Home from "./components/Home";
 import BookList from "./components/BookList";
 import Register from "./components/Register";
 import LandingPage from "./components/LandingPage";
+import UpgradeAccount from "./components/UpgradeAccount";
+import Payment from './components/Payment';
 
 const AppContent = () => {
   const location = useLocation();
@@ -25,6 +27,8 @@ const AppContent = () => {
         <Route path="/books" element={<BookList />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/upgrade" element={<UpgradeAccount />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </>
   );

@@ -1,0 +1,59 @@
+/* components/UpgradeAccount.css */
+.upgrade-account {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.plans {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.plan {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  width: 250px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.plan:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.plan h3 {
+  margin: 0 0 10px;
+}
+
+.plan p {
+  margin: 5px 0;
+}
+
+.plan-details {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.selected-plan {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
