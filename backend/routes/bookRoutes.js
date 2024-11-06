@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
+const bookController = require("../controllers/bookController");
 
+// Route thêm sách
+router.post("/add", bookController.addBook);
 // Đọc sách
 router.get("/read", (req, res) => {
   // Logic đọc sách

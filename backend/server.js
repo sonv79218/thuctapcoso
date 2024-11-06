@@ -30,7 +30,7 @@ const authenticateToken = (req, res, next) => {
 const registerRoutes = require("./routes/register");
 const loginRoutes = require("./routes/login");
 const paymentRoutes = require("./routes/payment");
-const bookRoutes = require("./routes/book");
+const bookRoutes = require("./routes/bookRoutes");
 const searchRoutes = require("./routes/search");
 const securityRoutes = require("./routes/security");
 const accessControlRoutes = require("./routes/accessControl");
