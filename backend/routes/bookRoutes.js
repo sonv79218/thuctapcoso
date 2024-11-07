@@ -1,10 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
+const multer = require("multer");
 const bookController = require("../controllers/bookController");
-
+// Cấu hình multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
 // Route thêm sách
-router.post("/add", bookController.addBook);
+// Route thêm sách
+router.post("/add", upload.single("pdfFile"), bookController.addBook);
 // Đọc sách
 router.get("/read", (req, res) => {
   // Logic đọc sách

@@ -2,78 +2,82 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const AddBookForm = () => {
-  const [formData, setFormData] = useState({
-    title: "",
-    genre: "",
-    author: "",
-    year: "",
-  });
+  const [title, setTitle] = useState("");
+  const [genre, setGenre] = useState("");
+  const [author, setAuthor] = useState("");
+  const [year, setYear] = useState("");
+  const [pdfFile, setPdfFile] = useState(null);
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleFileChange = (e) => {
+    setPdfFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Kiểm tra các trường trước khi gửi
+    if (!title || !genre || !author || !year || !pdfFile) {
+      alert("Vui lòng cung cấp đầy đủ thông tin sách và file PDF");
+      return;
+    }
+
+    // Tạo FormData để gửi dữ liệu
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("genre", genre);
+    formData.append("author", author);
+    formData.append("year", year);
+    formData.append("pdfFile", pdfFile);
+
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/book/add",
-        formData
+        "http://localhost:3001/api/book/addBook",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       alert(response.data.message);
-      setFormData({ title: "", genre: "", author: "", year: "" }); // Reset form
     } catch (error) {
-      console.error("Lỗi khi thêm sách:", error);
-      alert("Không thể thêm sách");
+      console.error("Lỗi khi thêm sách: ", error);
+      alert("Đã xảy ra lỗi khi thêm sách");
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Tiêu đề:</label>
-        <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Thể loại:</label>
-        <input
-          type="text"
-          name="genre"
-          value={formData.genre}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Tác giả:</label>
-        <input
-          type="text"
-          name="author"
-          value={formData.author}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Năm xuất bản:</label>
-        <input
-          type="number"
-          name="year"
-          value={formData.year}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <button type="submit">Thêm sách</button>
+      <input
+        type="text"
+        placeholder="Tiêu đề"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Thể loại"
+        value={genre}
+        onChange={(e) => setGenre(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Tác giả"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+        required
+      />
+      <input
+        type="number"
+        placeholder="Năm"
+        value={year}
+        onChange={(e) => setYear(e.target.value)}
+        required
+      />
+      <input type="file" onChange={handleFileChange} accept=".pdf" required />
+      <button type="submit">Thêm Sách</button>
     </form>
   );
 };
