@@ -1,4 +1,4 @@
-const db = require("../config/db");
+const db = require("../../config/db");
 
 // Hàm thêm sách
 exports.addBook = (req, res) => {

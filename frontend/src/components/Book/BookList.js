@@ -5,7 +5,7 @@ const BookList = () => {
 
   useEffect(() => {
     // Gọi API từ backend
-    fetch("http://localhost:5000/api/book") // Sửa lại URL
+    fetch("http://localhost:5000/api/book/list") // Sửa lại URL
       .then((response) => response.json())
       .then((data) => setBooks(data))
       .catch((error) => console.error("Lỗi khi lấy dữ liệu:", error));

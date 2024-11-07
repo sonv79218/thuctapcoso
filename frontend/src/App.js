@@ -8,13 +8,13 @@ import {
 import Header from "./Header_footer/Header";
 import Login from "./components/Login";
 import Home from "./components/Home";
-import BookList from "./components/BookList";
+import BookList from "./components/Book/BookList.js";
 import Register from "./components/Register";
 import LandingPage from "./components/LandingPage";
 import UpgradeAccount from "./components/UpgradeAccount";
 import Payment from "./components/Payment";
 import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
-import AddBookForm from "./components/AddBookForm";
+import AddBookForm from "./components/Book/AddBookForm";
 
 const AppContent = () => {
   const location = useLocation();
@@ -33,7 +33,7 @@ const AppContent = () => {
             </PrivateRoute>
           }
         />
-        <Route path="/books" element={<BookList />} />
+        <Route path="/book/list" element={<BookList />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/upgrade" element={<UpgradeAccount />} />
