@@ -1,4 +1,6 @@
 // server.js
+const path = require("path");
+
 require("dotenv").config();
 const express = require("express");
 const app = express();
@@ -11,7 +13,7 @@ const registerRoutes = require("./routes/registerRoutes");
 const loginRoutes = require("./routes/loginRoutes");
 const bookRoutes = require("./routes/bookRoutes");
 const accountUpgradeRoutes = require("./routes/accountUpgradeRoutes");
-
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Cấu hình ứng dụng
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

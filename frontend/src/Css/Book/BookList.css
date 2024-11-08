@@ -1,0 +1,33 @@
+/* Căn chỉnh cho grid */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 sách trên mỗi hàng */
+  gap: 20px; /* Khoảng cách giữa các sách */
+  padding: 20px;
+}
+
+/* Kiểu cho mỗi item sách */
+.book-item {
+  text-align: center;
+  border: 1px solid #ddd; /* Viền quanh mỗi quyển sách */
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Kiểu cho ảnh bìa */
+.book-cover {
+  width: 400px;
+  height: 300px;
+  object-fit: cover; /* Cắt bớt ảnh để vừa khung */
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.book-item p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
