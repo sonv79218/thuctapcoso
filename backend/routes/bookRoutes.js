@@ -9,7 +9,10 @@ const upload = require("../config/multerConfig"); // Import multer configuration
 // router.post("/add", upload.single("pdfFile"), addBookController.addBook);
 router.post(
   "/add",
-  upload.fields([{ name: "pdfFile" }, { name: "coverImage" }]),
+  upload.fields([
+    { name: "pdfFile", maxCount: 1 },
+    { name: "coverImage", maxCount: 1 },
+  ]),
   addBookController.addBook
 );
 // Đọc sách

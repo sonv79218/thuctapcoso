@@ -58,13 +58,12 @@ const AddBookForm = () => {
 
   return (
     <div className="add-book-container">
-      <h2>Thêm Sách Mới</h2>
       <form onSubmit={handleSubmit} className="add-book-form">
+        <h2>Thêm Sách Mới</h2>
         <input
           type="text"
           placeholder="Tiêu đề"
           value={title}
-          //khi sự kiện thay đổi. thì lấy giá trị của DOM kích hoạt sự kiện thay đổi đó và lưu nó vào State title
           onChange={(e) => setTitle(e.target.value)}
           required
         />
@@ -113,17 +112,17 @@ const AddBookForm = () => {
           style={{ display: "none" }}
           required
         />
-
-        {previewImage && (
-          <div className="image-preview">
-            <img src={previewImage} alt="Xem trước ảnh bìa" />
-          </div>
-        )}
-
         <button type="submit" className="add-book-btn">
           Thêm Sách
         </button>
       </form>
+
+      <div className="image-preview">
+        {previewImage && <img src={previewImage} alt="Xem trước ảnh bìa" />}
+        {pdfFile && (
+          <div className="pdf-file-info">Tệp PDF: {pdfFile.name}</div>
+        )}
+      </div>
     </div>
   );
 };
