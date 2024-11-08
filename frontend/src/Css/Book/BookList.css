@@ -1,33 +1,86 @@
-/* Căn chỉnh cho grid */
+/* Đặt lại toàn bộ các phần tử */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .book-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 sách trên mỗi hàng */
-  gap: 20px; /* Khoảng cách giữa các sách */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   padding: 20px;
+  gap: 20px; /* Khoảng cách giữa các quyển sách */
 }
 
-/* Kiểu cho mỗi item sách */
 .book-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px; /* Kích thước ảnh sách */
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
   text-align: center;
-  border: 1px solid #ddd; /* Viền quanh mỗi quyển sách */
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Kiểu cho ảnh bìa */
+/* Hiệu ứng khi hover vào ảnh */
 .book-cover {
-  width: 400px;
+  width: 100%;
   height: 300px;
-  object-fit: cover; /* Cắt bớt ảnh để vừa khung */
-  border-radius: 8px;
-  margin-bottom: 10px;
+  object-fit: cover; /* Cắt ảnh sao cho phù hợp */
+  border-radius: 10px;
+  transition: transform 0.3s ease;
 }
 
-.book-item p {
+.book-item:hover .book-cover {
+  transform: scale(1.1); /* Phóng to ảnh khi hover */
+}
+
+.book-title {
+  margin-top: 10px;
   font-size: 16px;
   font-weight: bold;
   color: #333;
-  margin: 0;
+}
+
+/* Khung PDF chiếm toàn bộ màn hình */
+.pdf-viewer-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Màu nền bán trong suốt */
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 20px;
+}
+
+/* Nút quay lại */
+.back-button {
+  background-color: #f1f1f1;
+  color: #333;
+  font-size: 18px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #ddd;
+}
+
+/* Hiển thị khung PDF */
+iframe {
+  width: 100%;
+  height: 80%;
+  border: none;
+  background-color: #fff;
 }
