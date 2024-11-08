@@ -6,7 +6,12 @@ const addBookController = require("../controllers/bookController/addBookControll
 const readBookController = require("../controllers/bookController/listBookController");
 const upload = require("../config/multerConfig"); // Import multer configuration
 // Route thêm sách
-router.post("/add", upload.single("pdfFile"), addBookController.addBook);
+// router.post("/add", upload.single("pdfFile"), addBookController.addBook);
+router.post(
+  "/add",
+  upload.fields([{ name: "pdfFile" }, { name: "coverImage" }]),
+  addBookController.addBook
+);
 // Đọc sách
 router.get("/list", readBookController.listBook); // Sửa ở đây, gọi hàm readBook từ controller
 
