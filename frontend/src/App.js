@@ -15,6 +15,7 @@ import UpgradeAccount from "./components/UpgradeAccount";
 import Payment from "./components/Payment";
 import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
 import AddBookForm from "./components/Book/AddBookForm";
+import Book from "./components/Book.js";
 
 const AppContent = () => {
   const location = useLocation();
@@ -39,6 +40,7 @@ const AppContent = () => {
         <Route path="/upgrade" element={<UpgradeAccount />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/book/add" element={<AddBookForm />} />
+        <Route path="/book" element={<Book />} />
       </Routes>
     </>
   );

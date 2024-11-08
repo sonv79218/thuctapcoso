@@ -6,11 +6,14 @@ const Header = () => {
     <header className="header">
       <h1 className="header-title">Danh Sách Sách</h1>
       <nav className="header-nav">
-        <a href="/" className="header-link">
+        <a href="/home" className="header-link">
           Trang Chủ
         </a>
-        <a href="/books" className="header-link">
+        <a href="/book/list" className="header-link">
           Sách
+        </a>
+        <a href="/book" className="header-link">
+          Chức năng
         </a>
       </nav>
     </header>

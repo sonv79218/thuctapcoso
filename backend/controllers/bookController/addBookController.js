@@ -15,8 +15,16 @@ exports.addBook = (req, res) => {
   db.query(sql, [title, genre, author, year], (err, result) => {
     if (err) {
       console.error("Lỗi khi thêm sách: ", err);
-      return res.status(500).json({ message: "Lỗi khi thêm sách" });
+
+      if (err.code === "ER_DUP_ENTRY") {
+        return res
+          .status(409)
+          .json({ message: "Sách đã tồn tại hoặc lỗi trùng lặp dữ liệu" });
+      }
+
+      return res.status(500).json({ message: "Lỗi khi thêm sách", error: err });
     }
+
     res
       .status(201)
       .json({ message: "Thêm sách thành công", bookId: result.insertId });
