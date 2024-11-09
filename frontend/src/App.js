@@ -16,7 +16,7 @@ import Payment from "./components/Payment";
 import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
 import AddBookForm from "./components/Book/AddBookForm";
 import Book from "./components/Book.js";
-
+import EditBookForm from "./components/Book/EditBookForm";
 const AppContent = () => {
   const location = useLocation();
 
@@ -41,6 +41,8 @@ const AppContent = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/book/add" element={<AddBookForm />} />
         <Route path="/book" element={<Book />} />
+        {/* form sửa sách */}
+        <Route path="/book/edit/:id" element={<EditBookForm />} />
       </Routes>
     </>
   );

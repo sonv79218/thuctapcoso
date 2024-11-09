@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"; // Thêm điều hướng từ R
 import "../../Css/Book/BookList.css"; // CSS tách biệt
 
 const BookList = () => {
+  // khai báo state cho các biến
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBook, setSelectedBook] = useState(null);
@@ -28,6 +29,23 @@ const BookList = () => {
 
   const handleBackClick = () => {
     setSelectedBook(null); // Quay lại danh sách
+  };
+
+  // Hàm xóa sách
+  const handleDelete = (bookId) => {
+    // Xác nhận trước khi xóa
+    if (window.confirm("Bạn có chắc chắn muốn xóa sách này?")) {
+      axios
+        .delete(`http://localhost:5000/api/book/delete/${bookId}`)
+        .then((response) => {
+          alert("Sách đã được xóa thành công!");
+          setBooks(books.filter((book) => book.id !== bookId)); // Cập nhật lại danh sách
+        })
+        .catch((error) => {
+          console.error("Lỗi khi xóa sách:", error);
+          alert("Có lỗi xảy ra khi xóa sách");
+        });
+    }
   };
 
   if (loading) {
@@ -77,7 +95,7 @@ const BookList = () => {
                   </button>
                   <button
                     className="book-button delete"
-                    onClick={() => navigate(`/book/delete/${book.id}`)}
+                    onClick={() => handleDelete(book.id)}
                   >
                     Xóa
                   </button>
