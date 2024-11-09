@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
-const multer = require("multer");
+//const multer = require("multer");
 const addBookController = require("../controllers/bookController/addBookController");
 const readBookController = require("../controllers/bookController/listBookController");
 const upload = require("../config/multerConfig"); // Import multer configuration
@@ -9,6 +9,7 @@ const upload = require("../config/multerConfig"); // Import multer configuration
 // router.post("/add", upload.single("pdfFile"), addBookController.addBook);
 router.post(
   "/add",
+  //kiểm soát dữ liệu từ API từ middleware
   upload.fields([
     { name: "pdfFile", maxCount: 1 },
     { name: "coverImage", maxCount: 1 },

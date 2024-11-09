@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../Css/Login.css"; // Đảm bảo đã tạo file CSS này
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -12,20 +13,14 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // Gửi yêu cầu đăng nhập tới server
       const response = await axios.post("/api/login", {
         username,
         password,
       });
 
-      // Kiểm tra đăng nhập thành công
       if (response.status === 200) {
-        const { token } = response.data; // Giả sử token trả về là 'token'
-
-        // Lưu token vào localStorage
+        const { token } = response.data;
         localStorage.setItem("token", token);
-
-        // Điều hướng đến trang home sau khi đăng nhập thành công
         navigate("/home");
       }
     } catch (error) {
@@ -35,30 +30,37 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Đăng nhập</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>Tài khoản</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Mật khẩu</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {errorMessage && <p>{errorMessage}</p>}
-        <button type="submit">Đăng nhập</button>
-      </form>
+    <div className="login-container">
+      <div className="login-box">
+        <h2>Đăng nhập</h2>
+        <form onSubmit={handleLogin}>
+          <div className="input-container">
+            <label>Tài khoản</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-container">
+            <label>Mật khẩu</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <button type="submit" className="login-btn">
+            Đăng nhập
+          </button>
+          <p>
+            Chưa có tài khoản? <a href="/register"> đăng ký</a>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };

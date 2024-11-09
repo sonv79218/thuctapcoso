@@ -1,0 +1,74 @@
+/* Thiết lập lại margin và padding mặc định */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Khung chứa form đăng ký */
+.register-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* Khung form */
+.register-box {
+  background-color: white;
+  padding: 40px;
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Các ô input */
+.input-container {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-container label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 14px;
+}
+
+.input-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.input-container input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Nút đăng ký */
+.register-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-btn:hover {
+  background-color: #0056b3;
+}

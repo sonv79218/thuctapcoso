@@ -1,5 +1,5 @@
-// Register.js
 import React, { useState } from "react";
+import "../Css/Register.css"; // Đảm bảo đã tạo file CSS này
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -35,36 +35,58 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="username"
-        placeholder="Tên đăng nhập"
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Mật khẩu"
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="text"
-        name="full_name"
-        placeholder="Họ và tên"
-        onChange={handleChange}
-      />
-      <button type="submit">Đăng Ký</button>
-    </form>
+    <div className="register-container">
+      <div className="register-box">
+        <h2>Đăng ký</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="input-container">
+            <label>Tên đăng nhập</label>
+            <input
+              type="text"
+              name="username"
+              //placeholder="Tên đăng nhập"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-container">
+            <label>Mật khẩu</label>
+            <input
+              type="password"
+              name="password"
+              //placeholder="Mật khẩu"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-container">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              //placeholder="Email"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-container">
+            <label>Họ và tên</label>
+            <input
+              type="text"
+              name="full_name"
+              //placeholder="Họ và tên"
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit" className="register-btn">
+            Đăng Ký
+          </button>
+          <p>
+            Đã có tài khoản? <a href="/login"> đăng nhập </a>
+          </p>
+        </form>
+      </div>
+    </div>
   );
 };
 

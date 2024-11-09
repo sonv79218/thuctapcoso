@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../../Css/Book/BookList.css";
+import { useNavigate } from "react-router-dom"; // Thêm điều hướng từ React Router
+import "../../Css/Book/BookList.css"; // CSS tách biệt
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedBook, setSelectedBook] = useState(null); // Lưu quyển sách được chọn
+  const [selectedBook, setSelectedBook] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/book/list")
       .then((response) => {
-        console.log("Dữ liệu từ API:", response.data);
         setBooks(response.data);
         setLoading(false);
       })
@@ -22,56 +23,71 @@ const BookList = () => {
   }, []);
 
   const handleBookClick = (book) => {
-    setSelectedBook(book);
+    setSelectedBook(book); // Hiển thị sách được chọn
   };
 
   const handleBackClick = () => {
-    setSelectedBook(null); // Khi nhấn nút quay lại, sẽ ẩn phần PDF
+    setSelectedBook(null); // Quay lại danh sách
   };
 
   if (loading) {
-    return <div>Đang tải...</div>;
+    return <div className="loading">Đang tải...</div>;
   }
 
   if (books.length === 0) {
-    return <div>Không có sách nào trong danh sách</div>;
+    return <div className="no-books">Không có sách nào trong danh sách</div>;
   }
 
   return (
-    <div>
+    <div className="booklist-container">
       {selectedBook ? (
         <div className="pdf-viewer-container">
-          {/* Nút quay lại */}
           <button className="back-button" onClick={handleBackClick}>
             Quay lại
           </button>
-
-          {/* Hiển thị PDF */}
-          {selectedBook.pdf_file && (
+          {selectedBook.pdf_file ? (
             <iframe
               src={`http://localhost:5000${selectedBook.pdf_file}`}
               width="100%"
-              height="100%"
+              height="700px"
               title={selectedBook.title}
             ></iframe>
+          ) : (
+            <p>Không có tệp PDF để hiển thị</p>
           )}
         </div>
       ) : (
         <div>
-          <h1>Danh sách sách</h1>
+          <h1 className="booklist-title">Danh sách sách</h1>
           <div className="book-grid">
             {books.map((book) => (
-              <div
-                className="book-item"
-                key={book.id}
-                onClick={() => handleBookClick(book)} // Khi nhấn vào sách, hiển thị PDF
-              >
+              <div className="book-item" key={book.id}>
                 <img
                   src={`http://localhost:5000${book.cover_image}`}
                   alt={book.title}
                   className="book-cover"
                 />
-                <p>{book.title}</p>
+                <p className="book-title">{book.title}</p>
+                <div className="book-actions">
+                  <button
+                    className="book-button edit"
+                    onClick={() => navigate(`/book/edit/${book.id}`)}
+                  >
+                    Sửa
+                  </button>
+                  <button
+                    className="book-button delete"
+                    onClick={() => navigate(`/book/delete/${book.id}`)}
+                  >
+                    Xóa
+                  </button>
+                </div>
+                <button
+                  className="view-button"
+                  onClick={() => handleBookClick(book)}
+                >
+                  Xem PDF
+                </button>
               </div>
             ))}
           </div>

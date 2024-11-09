@@ -1,11 +1,19 @@
 import React from "react";
-import "../Css/Auth.css";
+import "../Css/Landing.css";
 
 const LandingPage = () => {
   return (
-    <div className="auth-container">
-      <a href="/login">Đăng nhập</a>
-      <a href="/register">Đăng ký</a>
+    <div className="landing-container">
+      <h1>Chào mừng đến với trang của chúng tôi</h1>
+      <p>Khám phá các tính năng tuyệt vời mà chúng tôi mang đến cho bạn!</p>
+      <div className="button-container">
+        <a href="/login" className="button">
+          Đăng nhập
+        </a>
+        <a href="/register" className="button">
+          Đăng ký
+        </a>
+      </div>
     </div>
   );
 };
