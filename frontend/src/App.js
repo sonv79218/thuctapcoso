@@ -6,6 +6,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import Header from "./Header_footer/Header";
+import Profile from "./components/Profile.js";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import BookList from "./components/Book/BookList.js";
@@ -41,6 +42,7 @@ const AppContent = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/book/add" element={<AddBookForm />} />
         <Route path="/book" element={<Book />} />
+        <Route path="/profile" element={<Profile />} />
         {/* form sửa sách */}
         <Route path="/book/edit/:id" element={<EditBookForm />} />
       </Routes>
