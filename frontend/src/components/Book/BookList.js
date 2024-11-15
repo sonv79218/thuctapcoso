@@ -9,8 +9,9 @@ const BookList = () => {
   const [loading, setLoading] = useState(true);
   const [selectedBook, setSelectedBook] = useState(null);
   const navigate = useNavigate();
-  const userId = sessionStorage.getItem("userId");
+
   useEffect(() => {
+    const userId = sessionStorage.getItem("userId");
     axios
       .get(`http://localhost:5000/api/book/list?userId=${userId}`)
       .then((response) => {

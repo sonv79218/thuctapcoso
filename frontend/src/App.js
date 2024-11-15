@@ -14,27 +14,19 @@ import Register from "./components/Register";
 import LandingPage from "./components/LandingPage";
 import UpgradeAccount from "./components/UpgradeAccount";
 import Payment from "./components/Payment";
-import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
+//import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
 import AddBookForm from "./components/Book/AddBookForm";
 import Book from "./components/Book.js";
 import EditBookForm from "./components/Book/EditBookForm";
 const AppContent = () => {
   const location = useLocation();
-
   const noHeaderPaths = ["/", "/login", "/register"];
   return (
     <>
       {!noHeaderPaths.includes(location.pathname) && <Header />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route
-          path="/home"
-          element={
-            <PrivateRoute>
-              <Home /> {/* Trang Home sẽ chỉ được truy cập khi có token */}
-            </PrivateRoute>
-          }
-        />
+        <Route path="/home" element={<Home />} />
         <Route path="/book/list" element={<BookList />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
