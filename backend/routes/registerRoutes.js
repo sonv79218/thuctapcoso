@@ -4,6 +4,6 @@ const router = express.Router();
 const { register } = require("../controllers/registerController"); // Import controller
 
 // Định nghĩa route cho đăng ký
-router.post("/register", register);
+router.post("/", register);
 
 module.exports = router;

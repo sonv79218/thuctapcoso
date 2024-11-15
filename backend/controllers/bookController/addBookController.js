@@ -2,8 +2,9 @@ const db = require("../../config/db");
 exports.addBook = (req, res) => {
   try {
     // Lấy dữ liệu từ body
-    const { title, genre, author, year } = req.body;
-
+    const { title, genre, author, year, userId } = req.body;
+    //const userId = sessionStorage.getItem("userId");
+    //const userId = req.session.userId; // Nếu sử dụng express-session
     // Lấy đường dẫn file từ req.files
     const pdfFile = req.files?.pdfFile
       ? `/uploads/${req.files.pdfFile[0].filename}`
@@ -18,15 +19,19 @@ exports.addBook = (req, res) => {
         message: "Vui lòng cung cấp đầy đủ thông tin sách và file ảnh bìa",
       });
     }
-
+    if (!userId) {
+      return res.status(400).json({
+        message: " vui lòng đăng nhập",
+      });
+    }
     // Thực hiện lưu vào cơ sở dữ liệu
     const sql = `
-      INSERT INTO books (title, genre, author, year, cover_image, pdf_file) 
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO books (title, genre, author, year, cover_image, pdf_file, userId) 
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
     db.query(
       sql,
-      [title, genre, author, year, coverImage, pdfFile],
+      [title, genre, author, year, coverImage, pdfFile, userId],
       (err, result) => {
         if (err) {
           console.error("Lỗi khi thêm sách: ", err);
@@ -36,7 +41,7 @@ exports.addBook = (req, res) => {
         }
         res.status(201).json({
           message: "Thêm sách thành công",
-          bookId: result.insertId,
+          //bookId: result.insertId,
         });
       }
     );

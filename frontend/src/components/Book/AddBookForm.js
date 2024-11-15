@@ -32,7 +32,11 @@ const AddBookForm = () => {
       alert("Vui lòng cung cấp đầy đủ thông tin sách và file ảnh bìa");
       return;
     }
-
+    const userId = sessionStorage.getItem("userId"); // Lấy userId từ localStorage
+    if (!userId) {
+      alert("Bạn cần đăng nhập để thêm sách");
+      return;
+    }
     const formData = new FormData();
     formData.append("title", title);
     formData.append("genre", genre);
@@ -40,6 +44,7 @@ const AddBookForm = () => {
     formData.append("year", year);
     formData.append("pdfFile", pdfFile);
     formData.append("coverImage", coverImage);
+    formData.append("userId", userId);
 
     try {
       const response = await axios.post(

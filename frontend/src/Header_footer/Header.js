@@ -1,123 +1,88 @@
-import React from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate từ react-router-dom
-import "../Css/Header.css"; // Import file CSS
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../Css/Header.css";
+//import { all } from "axios";
 
 const Header = () => {
-  const navigate = useNavigate(); // Khởi tạo useNavigate
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-  // Hàm xử lý khi nhấn vào nút Nâng Cấp
+  // Kiểm tra trạng thái đăng nhập khi component render
+  useEffect(() => {
+    const userId = sessionStorage.getItem("userId"); // Lấy user_id từ sessionStorage
+    setIsLoggedIn(!!userId); // Chuyển đổi thành boolean
+  }, []);
+
+  // Hàm xử lý đăng xuất
+  const handleLogout = () => {
+    sessionStorage.removeItem("userId"); // Xóa thông tin đăng nhập
+    sessionStorage.removeItem("token"); // Xóa thông tin đăng nhập
+    sessionStorage.removeItem("username"); // Xóa thông tin đăng nhập
+    setIsLoggedIn(false);
+    alert("Bạn đã đăng xuất!");
+    navigate("/home"); // Chuyển hướng về trang đăng nhập
+  };
+
+  // Hàm xử lý nâng cấp
   const handleUpgradeClick = () => {
-    navigate("/upgrade"); // Chuyển hướng tới trang Upgrade
+    navigate("/upgrade"); // Chuyển hướng tới trang nâng cấp
   };
 
   return (
-    <header style={{ height: "100px" }}>
-      {/* Thanh điều hướng sử dụng Bootstrap */}
-      <nav
-        className="navbar navbar-expand-lg navbar-light bg-light"
-        style={{ height: "100%" }}
-      >
-        <div className="container-fluid" style={{ height: "100%" }}>
-          {/* Logo với khoảng cách 40px từ bên trái */}
-          <a
-            className="navbar-brand"
-            href="/home"
-            style={{ marginLeft: "40px", marginTop: "8px", height: "100%" }}
-          >
-            <img
-              src="/image.png" // Đường dẫn tới ảnh logo của bạn
-              alt="Logo"
-              width="85"
-              height="70"
-            />
-          </a>
+    <header className="header">
+      <div className="header-container">
+        {/* Logo */}
+        <a className="logo" href="/home">
+          <img src="/image.png" alt="Logo" className="logo-img" />
+        </a>
 
-          {/* Tính năng thu nhỏ menu trên thiết bị di động */}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
+        {/* Nút tìm kiếm */}
+        <form className="search-form">
+          <input type="text" placeholder="Search" className="search-input" />
+          <button type="submit" className="search-button">
+            Search
           </button>
+        </form>
 
-          {/* Các mục trong thanh điều hướng */}
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul
-              className="navbar-nav me-auto mb-2 mb-lg-0 "
-              style={{ marginLeft: "30px" }}
-            >
-              {/* Các mục menu */}
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/book">
-                  Author
-                </a>
-              </li>
-            </ul>
+        {/* Tài khoản & Nâng cấp */}
+        <div className="action-buttons">
+          <button className="upgrade-button" onClick={handleUpgradeClick}>
+            Nâng Cấp
+          </button>
+          <div className="account-actions">
+            {isLoggedIn ? (
+              <>
+                {/* Menu điều hướng */}
 
-            {/* Ô tìm kiếm với khoảng cách 20px từ logo */}
-            <form className="d-flex" style={{ marginLeft: "20px" }}>
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                style={{ width: "500px" }}
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
-
-            {/* Nút nâng cấp và tài khoản ở bên phải */}
-            <ul
-              className="navbar-nav ms-auto mb-2 mb-lg-0"
-              style={{ marginRight: "40px" }}
-            >
-              <li className="nav-item">
-                <button
-                  className="btn btn-outline-primary"
-                  type="button"
-                  onClick={handleUpgradeClick}
-                  style={{ marginRight: "20px" }}
-                >
-                  Nâng Cấp
-                </button>
-              </li>
-
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
+                <nav className="nav-menu">
+                  <ul className="menu-list">
+                    <li>
+                      <a href="/book" className="menu-link">
+                        Author
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+                <a href="/profile" className="account-link">
                   Tài khoản
                 </a>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <a className="dropdown-item" href="/login">
-                      Đăng nhập
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="/register">
-                      Đăng ký
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+                <button onClick={handleLogout} className="logout-button">
+                  Đăng xuất
+                </button>
+              </>
+            ) : (
+              <>
+                <a href="/login" className="account-link">
+                  Đăng nhập
+                </a>
+                <a href="/register" className="account-link">
+                  Đăng ký
+                </a>
+              </>
+            )}
           </div>
         </div>
-      </nav>
+      </div>
     </header>
   );
 };

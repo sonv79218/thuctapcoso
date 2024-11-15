@@ -4,6 +4,7 @@ const db = require("../config/db");
 //const multer = require("multer");
 const addBookController = require("../controllers/bookController/addBookController");
 const readBookController = require("../controllers/bookController/listBookController");
+const readBookPublicController = require("../controllers/bookController/listBookPublicController");
 const deleteBookController = require("../controllers/bookController/deleteBookController");
 const {
   getBookById,
@@ -23,6 +24,7 @@ router.post(
 );
 // Đọc sách
 router.get("/list", readBookController.listBook); // Sửa ở đây, gọi hàm readBook từ controller
+router.get("/listpublic", readBookPublicController.listBookPublic); //
 
 // Lấy thông tin sách theo ID
 router.get("/edit/:id", getBookById);
