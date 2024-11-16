@@ -41,13 +41,12 @@ exports.login = async (req, res) => {
     // Trả về token cho client
     // res.status(200).json({ message: "Đăng nhập thành công!", token });
     //tôi sẽ dùng localStorage để lưu
-    res
-      .status(200)
-      .json({
-        message: "đăng nhập thành công",
-        token,
-        username: user.username,
-        user_id: user.id,
-      });
+    res.status(200).json({
+      message: "đăng nhập thành công",
+      token,
+      username: user.username,
+      user_id: user.id,
+      role: user.role,
+    });
   });
 };

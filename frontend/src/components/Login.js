@@ -23,16 +23,23 @@ const Login = () => {
 
       if (response.status === 200) {
         console.log("đăng nhập thành công");
-        const { token, username, user_id } = response.data;
-        
+        const { token, username, user_id, role } = response.data;
+
         // Lưu thông tin vào localStorage
         sessionStorage.setItem("username", username); // Lưu username
         sessionStorage.setItem("userId", user_id); // Lưu user_id
         sessionStorage.setItem("token", token); // Lưu token
+        sessionStorage.setItem("role", role); // Lưu role
+
         console.log(sessionStorage.getItem("token"));
         // const { token } = response.data;
         // localStorage.setItem("token", token);
-        navigate("/home");
+        //navigate("/home");
+        if (role === "admin") {
+          navigate("/admin-dashboard"); // Trang admin
+        } else {
+          navigate("/home"); // Trang người dùng
+        }
       }
     } catch (error) {
       console.error("Lỗi đăng nhập:", error);

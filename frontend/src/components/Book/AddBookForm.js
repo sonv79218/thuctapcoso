@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../../Css/Book/AddBookForm.css";
-
+import ButtonBack from "../../Header_footer/ButtonBack";
 const AddBookForm = () => {
   //state cho các thuộc tính
   const [title, setTitle] = useState("");
@@ -128,6 +128,7 @@ const AddBookForm = () => {
           <div className="pdf-file-info">Tệp PDF: {pdfFile.name}</div>
         )}
       </div>
+      <ButtonBack></ButtonBack>
     </div>
   );
 };

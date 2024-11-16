@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Thêm điều hướng từ React Router
 import "../../Css/Book/BookList.css"; // CSS tách biệt
-
+import ButtonBack from "../../Header_footer/ButtonBack";
 const BookList = () => {
   // khai báo state cho các biến
   const [books, setBooks] = useState([]);
@@ -112,6 +112,7 @@ const BookList = () => {
           </div>
         </div>
       )}
+      <ButtonBack></ButtonBack>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import "../Css/Book.css";
-
+import ButtonBack from "../Header_footer/ButtonBack";
 const Book = () => {
   return (
     <div className="book-container">
@@ -13,6 +13,7 @@ const Book = () => {
           Thêm sách
         </a>
       </div>
+      <ButtonBack></ButtonBack>
     </div>
   );
 };

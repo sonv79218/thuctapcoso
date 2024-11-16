@@ -5,7 +5,9 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "./Header_footer/Header";
+//import ButtonBack from "./Header_footer/ButtonBack";
 import Profile from "./components/Profile.js";
 import Login from "./components/Login";
 import Home from "./components/Home";
@@ -18,7 +20,29 @@ import Payment from "./components/Payment";
 import AddBookForm from "./components/Book/AddBookForm";
 import Book from "./components/Book.js";
 import EditBookForm from "./components/Book/EditBookForm";
+import Admin from "./components/Admin.js";
+import Error from "./components/Error.js";
+//import { pathToFileURL } from "url";
+
 const AppContent = () => {
+  // const userId = sessionStorage.getItem("userId");
+  // const role = sessionStorage.getItem("role");
+  const ProtectedRoute = ({ element }) => {
+    const userId = sessionStorage.getItem("userId");
+    const role = sessionStorage.getItem("role");
+    //const navigate = useNavigate();
+    if (userId && role === "admin") {
+      return element;
+    } else {
+      // navigate("/error"); // Nếu không phải admin, trả về element lỗi
+      return <Error />;
+    }
+
+    // nếu userId khác null - là có đăng nhập và role = admin;
+    //if (userId && role === "admin") {
+    // thì đường dẫn /admin-dashboard dẫn đến trang element={<Admin />} còn nếu không thì sẽ dẫn đến
+    // trang element={<Error />}
+  };
   const location = useLocation();
   const noHeaderPaths = ["/", "/login", "/register"];
   return (
@@ -26,6 +50,7 @@ const AppContent = () => {
       {!noHeaderPaths.includes(location.pathname) && <Header />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/error" element={<Error />} />
         <Route path="/home" element={<Home />} />
         <Route path="/book/list" element={<BookList />} />
         <Route path="/login" element={<Login />} />
@@ -35,6 +60,11 @@ const AppContent = () => {
         <Route path="/book/add" element={<AddBookForm />} />
         <Route path="/book" element={<Book />} />
         <Route path="/profile" element={<Profile />} />
+        {/* Đường dẫn protected cho Admin */}
+        <Route
+          path="/admin-dashboard"
+          element={<ProtectedRoute element={<Admin />} />}
+        />
         {/* form sửa sách */}
         <Route path="/book/edit/:id" element={<EditBookForm />} />
       </Routes>
