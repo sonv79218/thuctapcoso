@@ -12,6 +12,7 @@ const AddBookForm = () => {
   const [coverImage, setCoverImage] = useState(null);
   // State preview lưu trữ ảnh
   const [previewImage, setPreviewImage] = useState("");
+  const [isPaid, setIsPaid] = useState("");
   //hàm thay đổi trạng thái của State pdfFile
   const handleFileChange = (e) => {
     setPdfFile(e.target.files[0]);
@@ -28,7 +29,15 @@ const AddBookForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // khi ng dùng gửi form (e) thì mặc định tải lại trang. đây là câu lệnh ngăn hành vi mặc định đó
 
-    if (!title || !genre || !author || !year || !pdfFile || !coverImage) {
+    if (
+      !title ||
+      !genre ||
+      !author ||
+      !year ||
+      !pdfFile ||
+      !coverImage ||
+      !isPaid
+    ) {
       alert("Vui lòng cung cấp đầy đủ thông tin sách và file ảnh bìa");
       return;
     }
@@ -45,6 +54,7 @@ const AddBookForm = () => {
     formData.append("pdfFile", pdfFile);
     formData.append("coverImage", coverImage);
     formData.append("userId", userId);
+    formData.append("isPaid", isPaid);
 
     try {
       const response = await axios.post(
@@ -117,6 +127,27 @@ const AddBookForm = () => {
           style={{ display: "none" }}
           required
         />
+        <div className="radio-container">
+          <label>
+            <input
+              type="radio"
+              name="isPaid"
+              value="free" // lưu giá trị ispaid = free khi chọn free
+              //checked // Kiểm tra trạng thái hiện tại
+              onChange={(e) => setIsPaid(e.target.value)}
+            />
+            Miễn phí
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="isPaid"
+              value="paid" // lưu giá trị vào is paid khi chọn trả phí
+              onChange={(e) => setIsPaid(e.target.value)}
+            />
+            Trả phí
+          </label>
+        </div>
         <button type="submit" className="add-book-btn">
           Thêm Sách
         </button>
