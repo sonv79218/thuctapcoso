@@ -2,7 +2,7 @@ const db = require("../../config/db");
 exports.addBook = (req, res) => {
   try {
     // Lấy dữ liệu từ body
-    const { title, genre, author, year, userId } = req.body;
+    const { title, genre, author, year, userId, isPaid } = req.body;
     //const userId = sessionStorage.getItem("userId");
     //const userId = req.session.userId; // Nếu sử dụng express-session
     // Lấy đường dẫn file từ req.files
@@ -14,7 +14,15 @@ exports.addBook = (req, res) => {
       : null;
 
     // Kiểm tra dữ liệu
-    if (!title || !genre || !author || !year || !pdfFile || !coverImage) {
+    if (
+      !title ||
+      !genre ||
+      !author ||
+      !year ||
+      !pdfFile ||
+      !coverImage ||
+      !isPaid
+    ) {
       return res.status(400).json({
         message: "Vui lòng cung cấp đầy đủ thông tin sách và file ảnh bìa",
       });
@@ -26,12 +34,12 @@ exports.addBook = (req, res) => {
     }
     // Thực hiện lưu vào cơ sở dữ liệu
     const sql = `
-      INSERT INTO books (title, genre, author, year, cover_image, pdf_file, userId) 
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO books (title, genre, author, year, cover_image, pdf_file, userId, isPaid) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
     db.query(
       sql,
-      [title, genre, author, year, coverImage, pdfFile, userId],
+      [title, genre, author, year, coverImage, pdfFile, userId, isPaid],
       (err, result) => {
         if (err) {
           console.error("Lỗi khi thêm sách: ", err);
