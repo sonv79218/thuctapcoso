@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../Css/Header.css";
 import BookListPublic from "./Book/BookListPublic";
+import BookListFree from "./Book/BookListFree";
+import BookListPaid from "./Book/BookListPaid";
 import ButtonBack from "../Header_footer/ButtonBack";
 const Home = () => {
   // Tạo state để lưu trữ tên người dùng
@@ -27,8 +29,11 @@ const Home = () => {
         Khám phá bộ sưu tập sách đa dạng của chúng tôi và chọn cho mình những
         cuốn sách yêu thích.
       </p>
-      <BookListPublic></BookListPublic>
-      <ButtonBack></ButtonBack>
+
+      <h3>Sách miễn phí</h3>
+      <BookListFree></BookListFree>
+      <h3>Sách Hay</h3>
+      <BookListPaid></BookListPaid>
     </div>
   );
 };
